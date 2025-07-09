@@ -30,7 +30,7 @@
 
 ### 🚀 一键部署（推荐）
 
-[![Deploy to Cloudflare](https://img.shields.io/badge/Deploy%20to%20Cloudflare-FF6B6B?style=for-the-badge&logo=cloudflare&logoColor=white)](https://github.com/your-username/google-2fa-decoder)
+[![Deploy to Cloudflare](https://img.shields.io/badge/Deploy%20to%20Cloudflare-FF6B6B?style=for-the-badge&logo=cloudflare&logoColor=white)](https://github.com/king267301/2FA)
 
 点击上面的按钮，按照提示配置即可自动部署！
 
