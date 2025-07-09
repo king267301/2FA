@@ -1,11 +1,3 @@
-[![Deploy to Cloudflare](https://deploy.cloudflare.com/button.svg)](https://deploy.cloudflare.com/?repository=https://github.com/your-username/google-2fa-decoder)
-
-点击上方按钮，一键部署到 Cloudflare Pages！
-
-> 部署后请在 Cloudflare Pages 项目设置中手动绑定 KV 命名空间和 Workers（如有需要）。
-
----
-
 # 谷歌2FA解码器
 
 一个现代化的谷歌两步验证解码器，基于Cloudflare的全栈解决方案。

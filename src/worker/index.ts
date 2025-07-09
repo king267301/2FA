@@ -55,7 +55,7 @@ router.get('*', async (request: Request, env: any) => {
 export default {
   async fetch(request: Request, env: any, ctx: any): Promise<Response> {
     // 初始化默认用户
-    await initDefaultUser(env.USERS)
+    await initDefaultUser(env.USERS, env)
     
     try {
       return await router.handle(request, env, ctx)
