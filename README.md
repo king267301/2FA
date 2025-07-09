@@ -1,4 +1,4 @@
-[![Deploy to Cloudflare](https://deploy.cloudflare.com/button.svg)](https://deploy.cloudflare.com/?repository=https://github.com/your-username/google-2fa-decoder)
+[![Deploy to Cloudflare](https://deploy.cloudflare.com/button.svg)](https://deploy.cloudflare.com/?repository=https://github.com/king267301/2FA)
 
 点击上方按钮，一键部署到 Cloudflare Pages！
 
