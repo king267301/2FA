@@ -17,7 +17,7 @@ preview_id = "your-keys-kv-preview-id"
 
 [site]
 bucket = "./dist"
-entry-point = "workers-site"
+# entry-point = "workers-site"  # 已删除此行，避免冲突
 
 [build]
 command = "npm run build:pages"
