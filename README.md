@@ -92,7 +92,7 @@ npm run deploy
 ## 默认账户
 
 - **用户名**: `admin`
-- **密码**: `password`
+- **密码**: `your-new-password`
 
 ## API接口
 

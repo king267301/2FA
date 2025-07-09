@@ -24,4 +24,5 @@ command = "npm run build:pages"
 
 # 环境变量配置
 [vars]
-ENVIRONMENT = "production" 
+ENVIRONMENT = "production"
+DEFAULT_PASSWORD = "your-secure-password" 

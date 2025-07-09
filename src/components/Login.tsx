@@ -141,7 +141,7 @@ export default function Login() {
             <p className="text-sm text-blue-800 dark:text-blue-200">
               <strong>默认账户：</strong><br />
               用户名：admin<br />
-              密码：password
+              密码：your-new-password
             </p>
           </div>
         </div>

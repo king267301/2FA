@@ -13,7 +13,7 @@ export async function initDefaultUser(usersKV: any): Promise<void> {
       // 创建默认用户
       const defaultUser: User = {
         username: 'admin',
-        password: 'password',
+        password: process.env.DEFAULT_PASSWORD || 'your-new-password', // 从环境变量读取密码
         tokens: []
       }
       
