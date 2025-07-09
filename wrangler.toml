@@ -1,0 +1,27 @@
+name = "google-2fa-decoder"
+main = "src/worker/index.ts"
+compatibility_date = "2024-01-01"
+
+[env.production]
+name = "google-2fa-decoder-prod"
+
+[[kv_namespaces]]
+binding = "USERS"
+id = "your-users-kv-id"
+preview_id = "your-users-kv-preview-id"
+
+[[kv_namespaces]]
+binding = "KEYS"
+id = "your-keys-kv-id"
+preview_id = "your-keys-kv-preview-id"
+
+[site]
+bucket = "./dist"
+entry-point = "workers-site"
+
+[build]
+command = "npm run build:pages"
+
+# 环境变量配置
+[vars]
+ENVIRONMENT = "production" 

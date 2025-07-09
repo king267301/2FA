@@ -1,0 +1,72 @@
+name: Deploy to Cloudflare
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch: # 允许手动触发
+
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build:pages
+
+      - name: Setup Wrangler
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Create KV namespaces (if auto-create is enabled)
+        if: ${{ vars.AUTO_CREATE_KV == 'true' }}
+        run: |
+          # 创建USERS KV命名空间
+          USERS_KV_ID=$(wrangler kv:namespace create "USERS" --preview=false --format=json | jq -r '.id')
+          echo "USERS_KV_ID=$USERS_KV_ID" >> $GITHUB_ENV
+          
+          # 创建USERS预览KV命名空间
+          USERS_PREVIEW_KV_ID=$(wrangler kv:namespace create "USERS" --preview=true --format=json | jq -r '.id')
+          echo "USERS_PREVIEW_KV_ID=$USERS_PREVIEW_KV_ID" >> $GITHUB_ENV
+          
+          # 创建KEYS KV命名空间
+          KEYS_KV_ID=$(wrangler kv:namespace create "KEYS" --preview=false --format=json | jq -r '.id')
+          echo "KEYS_KV_ID=$KEYS_KV_ID" >> $GITHUB_ENV
+          
+          # 创建KEYS预览KV命名空间
+          KEYS_PREVIEW_KV_ID=$(wrangler kv:namespace create "KEYS" --preview=true --format=json | jq -r '.id')
+          echo "KEYS_PREVIEW_KV_ID=$KEYS_PREVIEW_KV_ID" >> $GITHUB_ENV
+          
+          # 更新wrangler.toml文件
+          sed -i "s/your-users-kv-id/$USERS_KV_ID/g" wrangler.toml
+          sed -i "s/your-users-kv-preview-id/$USERS_PREVIEW_KV_ID/g" wrangler.toml
+          sed -i "s/your-keys-kv-id/$KEYS_KV_ID/g" wrangler.toml
+          sed -i "s/your-keys-kv-preview-id/$KEYS_PREVIEW_KV_ID/g" wrangler.toml
+
+      - name: Deploy to Cloudflare
+        run: wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Output deployment URL
+        run: |
+          echo "🚀 部署完成！"
+          echo "🌐 应用URL: https://${{ vars.CLOUDFLARE_PROJECT_NAME }}.pages.dev"
+          echo "📊 查看部署状态: https://dash.cloudflare.com/pages" 
